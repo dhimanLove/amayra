@@ -1,203 +1,189 @@
-import { useRef } from 'react';
-import { motion, useInView, useReducedMotion } from 'framer-motion';
-import { fadeUp, stagger } from '../motion/variants';
+import { useEffect, useRef } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-const services = [
-  'SAP Development',
-  'Full-Stack Engineering',
-  'Data Science & AI',
-  'IT Consulting',
-];
+gsap.registerPlugin(ScrollTrigger);
 
+const fadeUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 },
+};
+
+const services = ['SAP Development', 'Full-Stack Engineering', 'Data Science & AI', 'IT Consulting'];
 const company = ['About Us', 'Our Team', 'Careers', 'Contact'];
 
-const socialLinks = [
-  { label: 'LinkedIn', href: '#' },
-  { label: 'Twitter', href: '#' },
-];
-
 export function Footer() {
-  const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { once: true, margin: '-80px' });
-  const prefersReduced = useReducedMotion();
+  const reduced = useReducedMotion();
+  const fadeUpVariant = reduced ? { hidden: {}, visible: {} } : fadeUp;
+  
+  const containerRef = useRef<HTMLDivElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
 
-  const fadeUpVariant = prefersReduced ? { hidden: {}, visible: {} } : fadeUp;
-  const staggerVariant = prefersReduced ? { visible: {} } : stagger;
+  useEffect(() => {
+    if (reduced) return;
+
+    // Using gsap.context ensures clean memory management and maximum speed
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        ctaRef.current,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: ctaRef.current,
+            start: 'top 85%',
+            toggleActions: 'play none none none',
+          },
+        }
+      );
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, [reduced]);
 
   return (
-    <footer ref={ref} className="bg-carbon-ink pt-20 pb-10 relative overflow-hidden">
-      {/* Background Pattern */}
-      <div
-        className="absolute inset-0 opacity-[0.015] pointer-events-none"
-        style={{
-          backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
-          backgroundSize: '40px 40px',
-        }}
-      />
+    <footer ref={containerRef} className="relative overflow-hidden bg-carbon-ink border-t border-white/10 pt-24 pb-16 text-canvas-white">
+      {/* Smooth Transition Ambient Glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-32 bg-gradient-to-b from-white/[0.03] to-transparent blur-xl pointer-events-none" />
 
-      <div className="max-w-page mx-auto px-6 relative z-10">
-        {/* Grid */}
-        <motion.div
-          initial="hidden"
-          animate={inView ? 'visible' : 'hidden'}
-          variants={staggerVariant}
-          className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12"
-        >
+      <div className="mx-auto max-w-[1400px] px-6 lg:px-12 relative z-10">
+        
+        {/* Minimal CTA Section */}
+        <div ref={ctaRef} className="border-b border-white/10 pb-16 mb-16 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+          <div>
+            <h3 className="font-serif text-2xl md:text-3xl tracking-tight mb-2">
+              Ready to build something exceptional?
+            </h3>
+            <p className="font-sans text-sm text-steel">
+              Let’s discuss your technology goals.
+            </p>
+          </div>
+          <a
+            href="#contact"
+            className="group relative inline-flex items-center justify-center bg-canvas-white text-carbon-ink font-sans text-sm font-medium px-6 py-3 rounded-full overflow-hidden transition-all duration-300 active:scale-95 hover:bg-white hover:shadow-lg"
+          >
+            <span className="relative z-10 flex items-center gap-2">
+              Get in touch
+              <svg 
+                className="w-4 h-4 transform transition-transform duration-300 group-hover:translate-x-1" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </span>
+          </a>
+        </div>
+
+        {/* Main Footer Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {/* Brand */}
-          <motion.div variants={fadeUpVariant}>
-            <motion.a
-              href="#"
-              className="flex items-center gap-2 mb-5 group"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
+          <motion.div variants={fadeUpVariant} initial="hidden" animate="visible">
+            <a href="#" className="flex items-center gap-2 mb-5 group">
               <img src="/logo1.svg" alt="Amarya Logo" className="h-8 w-auto" />
-            </motion.a>
-            <p className="font-serif text-body-sm text-steel leading-relaxed max-w-[200px]">
+            </a>
+            <p className="font-serif text-sm text-steel leading-relaxed max-w-[200px]">
               Technology consulting and software development.
+              <br />
               Jabalpur, India. Founded 2015.
             </p>
           </motion.div>
 
           {/* Services */}
-          <motion.div variants={fadeUpVariant}>
-            <h4 className="font-mono text-caption uppercase text-slate mb-5 tracking-wider">
+          <div>
+            <h4 className="font-mono text-xs uppercase text-slate mb-5 tracking-wider">
               Services
             </h4>
             <ul className="space-y-3">
-              {services.map((item, index) => (
+              {services.map((item) => (
                 <li key={item}>
-                  <motion.a
+                  <a
                     href="#services"
-                    initial={{ opacity: 0, x: -8 }}
-                    animate={inView ? { opacity: 1, x: 0 } : {}}
-                    transition={{ delay: 0.2 + index * 0.05 }}
-                    className="font-sans text-body-sm text-steel hover:text-canvas-white transition-colors duration-300 inline-flex items-center gap-1.5 group"
-                    whileHover={{ x: 4 }}
+                    className="group font-sans text-sm text-steel hover:text-canvas-white transition-colors duration-300 inline-flex items-center gap-1.5"
                   >
-                    <span className="w-1 h-1 bg-graphite rounded-full group-hover:bg-lime-glow transition-colors" />
+                    {/* Dot highlited with scale and color change on link hover */}
+                    <span className="w-1 h-1 bg-graphite rounded-full transition-all duration-300 group-hover:bg-canvas-white group-hover:scale-150" />
                     {item}
-                  </motion.a>
+                  </a>
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </div>
 
           {/* Company */}
-          <motion.div variants={fadeUpVariant}>
-            <h4 className="font-mono text-caption uppercase text-slate mb-5 tracking-wider">
+          <div>
+            <h4 className="font-mono text-xs uppercase text-slate mb-5 tracking-wider">
               Company
             </h4>
             <ul className="space-y-3">
-              {company.map((item, index) => (
+              {company.map((item) => (
                 <li key={item}>
-                  <motion.a
+                  <a
                     href={item === 'Contact' ? '#contact' : '#about'}
-                    initial={{ opacity: 0, x: -8 }}
-                    animate={inView ? { opacity: 1, x: 0 } : {}}
-                    transition={{ delay: 0.2 + index * 0.05 }}
-                    className="font-sans text-body-sm text-steel hover:text-canvas-white transition-colors duration-300 inline-flex items-center gap-1.5 group"
-                    whileHover={{ x: 4 }}
+                    className="group font-sans text-sm text-steel hover:text-canvas-white transition-colors duration-300 inline-flex items-center gap-1.5"
                   >
-                    <span className="w-1 h-1 bg-graphite rounded-full group-hover:bg-lime-glow transition-colors" />
+                    {/* Dot highlited with scale and color change on link hover */}
+                    <span className="w-1 h-1 bg-graphite rounded-full transition-all duration-300 group-hover:bg-canvas-white group-hover:scale-150" />
                     {item}
-                  </motion.a>
+                  </a>
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </div>
 
           {/* Contact */}
-          <motion.div variants={fadeUpVariant}>
-            <h4 className="font-mono text-caption uppercase text-slate mb-5 tracking-wider">
+          <div>
+            <h4 className="font-mono text-xs uppercase text-slate mb-5 tracking-wider">
               Reach Us
             </h4>
-            <ul className="space-y-3 font-sans text-body-sm text-steel">
-              <motion.li
-                initial={{ opacity: 0 }}
-                animate={inView ? { opacity: 1 } : {}}
-                transition={{ delay: 0.3 }}
-              >
+            <ul className="space-y-3 font-sans text-sm text-steel">
+              <li>
                 <a
                   href="tel:+917869043213"
-                  className="hover:text-canvas-white transition-colors inline-flex items-center gap-1.5 group"
+                  className="group hover:text-canvas-white transition-colors inline-flex items-center gap-1.5"
                 >
-                  <span className="w-1 h-1 bg-graphite rounded-full group-hover:bg-lime-glow transition-colors" />
+                  <span className="w-1 h-1 bg-graphite rounded-full transition-all duration-300 group-hover:bg-canvas-white group-hover:scale-150" />
                   +91 78690 43213
                 </a>
-              </motion.li>
-              <motion.li
-                initial={{ opacity: 0 }}
-                animate={inView ? { opacity: 1 } : {}}
-                transition={{ delay: 0.35 }}
-              >
-                40 Kingsway Cantt, Sadar
-              </motion.li>
-              <motion.li
-                initial={{ opacity: 0 }}
-                animate={inView ? { opacity: 1 } : {}}
-                transition={{ delay: 0.4 }}
-              >
-                Jabalpur, MP 482001
-              </motion.li>
+              </li>
+              <li>40 Kingsway Cantt, Sadar</li>
+              <li>Jabalpur, MP 482001</li>
             </ul>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
 
         {/* Bottom Bar */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ delay: 0.5 }}
-          className="border-t border-graphite/50 pt-6 flex flex-col md:flex-row justify-between items-center gap-4"
-        >
-          <motion.p
-            variants={fadeUpVariant}
-            className="font-mono text-caption text-steel tracking-wide"
-          >
-            © 2025 AMARYA BUSINESS CONSULTANCY
-          </motion.p>
+        <div className="mt-12 border-t border-white/10 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="font-mono text-xs text-steel tracking-wide">
+            © {new Date().getFullYear()} AMARYA BUSINESS CONSULTANCY
+          </p>
           <div className="flex items-center gap-6">
-            <a
-              href="#"
-              className="font-mono text-caption text-steel hover:text-canvas-white transition-colors uppercase tracking-wide"
-            >
+            <a href="#" className="font-mono text-xs text-steel hover:text-canvas-white transition-colors uppercase tracking-wide">
               Privacy
             </a>
             <span className="w-1 h-1 bg-graphite rounded-full" />
-            <a
-              href="#"
-              className="font-mono text-caption text-steel hover:text-canvas-white transition-colors uppercase tracking-wide"
-            >
+            <a href="#" className="font-mono text-xs text-steel hover:text-canvas-white transition-colors uppercase tracking-wide">
               Terms
             </a>
           </div>
-        </motion.div>
+        </div>
 
         {/* Back to Top Button */}
-        <motion.button
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={inView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ delay: 0.6 }}
+        <button
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="absolute bottom-10 right-6 w-10 h-10 rounded-full border border-graphite/30 flex items-center justify-center text-slate hover:text-canvas-white hover:border-slate transition-all duration-300 group"
-          whileHover={{ y: -2, scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          className="absolute bottom-10 right-6 w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-slate hover:text-canvas-white hover:border-white/20 transition-all duration-300"
           aria-label="Back to top"
         >
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M18 15l-6-6-6 6" />
           </svg>
-        </motion.button>
+        </button>
       </div>
     </footer>
   );

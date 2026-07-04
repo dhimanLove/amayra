@@ -1,207 +1,147 @@
 import { useRef } from 'react';
 import { motion, useInView, useReducedMotion } from 'framer-motion';
-import { fadeUp, stagger, scaleIn, floatingAnimation } from '../motion/variants';
-import { ArrowRight, Phone, MapPin, Mail } from 'lucide-react';
-
-const contactInfo = [
-  { icon: Phone, value: '+91 78690 43213', href: 'tel:+917869043213' },
-  { icon: MapPin, value: '40, Kingsway Cantt, Sadar', href: null },
-  { icon: Mail, value: 'Jabalpur, MP 482001', href: null },
-];
+import { ArrowRight } from 'lucide-react';
 
 export function ContactCTA() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
-  const prefersReduced = useReducedMotion();
+  const reduced = useReducedMotion();
 
-  const fadeUpVariant = prefersReduced ? { hidden: {}, visible: {} } : fadeUp;
-  const staggerVariant = prefersReduced ? { visible: {} } : stagger;
-  const scaleInVariant = prefersReduced ? { hidden: {}, visible: {} } : scaleIn;
+  const fade = reduced ? {} : { opacity: 0, y: 24 };
+  const fadeIn = inView ? { opacity: 1, y: 0 } : {};
 
   return (
-    <section id="contact" ref={ref} className="py-32 bg-carbon-ink relative overflow-hidden">
-      {/* Animated Background Elements */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={inView ? { opacity: 0.05 } : {}}
-        transition={{ duration: 1 }}
-        className="absolute inset-0 pointer-events-none"
-      >
-        <motion.div
-          animate={floatingAnimation.animate}
-          className="absolute top-20 right-20 w-64 h-64 bg-cobalt-spark rounded-full blur-3xl"
-        />
-        <motion.div
-          animate={floatingAnimation.animate}
-          style={{ animationDelay: '2s' }}
-          className="absolute bottom-20 left-20 w-96 h-96 bg-lime-glow rounded-full blur-3xl"
-          custom={1}
-        />
-      </motion.div>
+    <section
+      id="contact"
+      ref={ref}
+      className="relative overflow-hidden bg-carbon-ink py-40"
+    >
+      {/* Subtle gradient accent - top left only */}
+      <div className="pointer-events-none absolute -top-40 -left-40 h-[600px] w-[600px] rounded-full bg-cobalt-spark/5 blur-3xl" />
 
-      {/* Grid Pattern Overlay */}
-      <div
-        className="absolute inset-0 opacity-[0.02] pointer-events-none"
-        style={{
-          backgroundImage: `linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)`,
-          backgroundSize: '60px 60px',
-        }}
-      />
-
-      <div className="max-w-content mx-auto px-6 text-center relative z-10">
-        {/* Eyebrow */}
-        <motion.div
-          initial="hidden"
-          animate={inView ? 'visible' : 'hidden'}
-          variants={staggerVariant}
-          className="mb-8"
-        >
-          <motion.div variants={fadeUpVariant} className="flex items-center justify-center gap-3">
-            <motion.span
-              initial={{ scale: 0 }}
-              animate={inView ? { scale: 1 } : {}}
-              transition={{ delay: 0.1, type: 'spring', stiffness: 200 }}
-              className="relative flex items-center justify-center"
+      <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
+        {/* Asymmetric grid - heavy left bias */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
+          
+          {/* Left column - spans 7 cols, dominant */}
+          <div className="lg:col-span-7">
+            <motion.p
+              initial={fade}
+              animate={fadeIn}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              className="mb-8 font-mono text-xs uppercase tracking-[0.3em] text-slate"
             >
-              <motion.span
-                className="absolute w-4 h-4 bg-lime-glow/30 rounded-full"
-                animate={{ scale: [1, 1.3, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              />
-              <span className="w-2 h-2 bg-lime-glow rounded-full block" />
-            </motion.span>
-            <span className="font-mono uppercase text-eyebrow text-slate tracking-wider">
               Let's Talk
-            </span>
-          </motion.div>
-        </motion.div>
+            </motion.p>
 
-        {/* Two-tone Heading */}
-        <motion.div
-          initial="hidden"
-          animate={inView ? 'visible' : 'hidden'}
-          variants={staggerVariant}
-          className="mb-8"
-        >
-          <motion.div variants={fadeUpVariant}>
-            <h2 className="headline-sans text-center">
-              <span className="text-canvas-white">Let's Build Your</span>{' '}
-              <span className="text-slate">Digital Future.</span>
-            </h2>
-          </motion.div>
-        </motion.div>
+            <motion.h2
+              initial={fade}
+              animate={fadeIn}
+              transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className="mb-10 font-serif text-6xl leading-[1.05] text-canvas-white lg:text-7xl xl:text-8xl"
+            >
+              Let's Build Your
+              <br />
+              <span className="italic text-slate">Digital Future.</span>
+            </motion.h2>
 
-        {/* Sub-copy */}
-        <motion.p
-          initial="hidden"
-          animate={inView ? 'visible' : 'hidden'}
-          variants={fadeUpVariant}
-          className="font-serif text-body-lg text-slate/80 max-w-[640px] mx-auto mb-14 leading-relaxed"
-        >
-          Whether you are modernizing legacy SAP infrastructure, deploying cloud solutions, or engineering a custom application from the ground up — our experts are ready to accelerate your journey.
-        </motion.p>
+            <motion.p
+              initial={fade}
+              animate={fadeIn}
+              transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              className="mb-12 max-w-md font-sans text-lg leading-relaxed text-iron"
+            >
+              Whether you are modernizing legacy SAP infrastructure, deploying cloud solutions, or engineering a custom application from the ground up — our experts are ready to accelerate your journey.
+            </motion.p>
 
-        {/* CTAs */}
-        <motion.div
-          initial="hidden"
-          animate={inView ? 'visible' : 'hidden'}
-          variants={staggerVariant}
-          className="flex flex-wrap items-center justify-center gap-5 mb-16"
-        >
-          <motion.a
-            href="tel:+917869043213"
-            variants={scaleInVariant}
-            className="btn-primary group flex items-center gap-2 will-change-transform relative overflow-hidden"
-            whileHover={{ scale: 1.04, y: -2 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <motion.span
-              initial={{ x: '-100%' }}
-              whileHover={{ x: '100%' }}
-              transition={{ duration: 0.6 }}
-              className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-            />
-            <span className="relative z-10">Start a Project</span>
-            <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5 relative z-10" />
-          </motion.a>
-          <motion.a
-            href="tel:+917869043213"
-            variants={scaleInVariant}
-            className="group flex items-center gap-2 px-5 py-3 rounded-full border border-slate/30 text-slate font-mono text-sm font-bold uppercase tracking-wider transition-all duration-300 hover:border-cobalt-spark hover:text-cobalt-spark will-change-transform"
-            whileHover={{ scale: 1.02, y: -1 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <Phone size={14} />
-            +91 78690 43213
-          </motion.a>
-        </motion.div>
-
-        {/* Contact Details */}
-        <motion.div
-          initial="hidden"
-          animate={inView ? 'visible' : 'hidden'}
-          variants={staggerVariant}
-          className="pt-10 border-t border-graphite/50"
-        >
-          {/* Address */}
-          <motion.p
-            variants={fadeUpVariant}
-            className="font-mono text-eyebrow uppercase text-steel tracking-wider mb-3"
-          >
-            40, KINGSWAY CANTT, SADAR, JABALPUR, MADHYA PRADESH 482001
-          </motion.p>
-          <motion.p
-            variants={fadeUpVariant}
-            className="font-mono text-eyebrow uppercase text-steel tracking-wider"
-          >
-            AMARYACONSULTANCY.COM · 078690 43213
-          </motion.p>
-
-          {/* Contact Info Pills */}
-          <motion.div
-            variants={staggerVariant}
-            className="flex flex-wrap justify-center gap-4 mt-10"
-          >
-            {contactInfo.map((info, index) => (
-              <motion.div
-                key={index}
-                variants={fadeUpVariant}
-                whileHover={{ scale: 1.05, y: -2 }}
-                className="flex items-center gap-2 px-4 py-2 rounded-full bg-graphite/50 border border-graphite/30"
+            <motion.div
+              initial={fade}
+              animate={fadeIn}
+              transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              className="flex items-center gap-8"
+            >
+              <a
+                href="tel:+917869043213"
+                className="group inline-flex items-center gap-3 rounded-full bg-white px-10 py-5 font-sans text-sm font-medium text-carbon-ink transition-all hover:bg-white/90"
               >
-                <info.icon size={14} className="text-slate" />
-                {info.href ? (
-                  <a
-                    href={info.href}
-                    className="font-mono text-caption uppercase text-steel tracking-wide hover:text-canvas-white transition-colors"
-                  >
-                    {info.value}
-                  </a>
-                ) : (
-                  <span className="font-mono text-caption uppercase text-steel tracking-wide">
-                    {info.value}
-                  </span>
-                )}
-              </motion.div>
-            ))}
-          </motion.div>
-        </motion.div>
+                Start a Project
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </a>
 
-        {/* Floating Decorative Elements */}
+              <a
+                href="tel:+917869043213"
+                className="font-mono text-sm text-iron transition-colors hover:text-white"
+              >
+                +91 78690 43213
+              </a>
+            </motion.div>
+          </div>
+
+          {/* Right column - spans 5 cols, offset down */}
+          <motion.div
+            initial={fade}
+            animate={fadeIn}
+            transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className="lg:col-span-5 lg:col-start-8 lg:mt-32"
+          >
+            <div className="space-y-12">
+              {/* Phone - prominent */}
+              <div>
+                <div className="mb-2 font-mono text-[10px] uppercase tracking-[0.3em] text-pewter">
+                  Call
+                </div>
+                <a
+                  href="tel:+917869043213"
+                  className="block font-sans text-3xl font-light text-canvas-white transition-colors hover:text-white lg:text-4xl"
+                >
+                  +91 78690 43213
+                </a>
+              </div>
+
+              {/* Address */}
+              <div>
+                <div className="mb-2 font-mono text-[10px] uppercase tracking-[0.3em] text-pewter">
+                  Visit
+                </div>
+                <address className="not-italic font-sans text-base leading-relaxed text-steel">
+                  40, Kingsway Cantt, Sadar
+                  <br />
+                  Jabalpur, MP 482001
+                </address>
+              </div>
+
+              {/* Website */}
+              <div>
+                <div className="mb-2 font-mono text-[10px] uppercase tracking-[0.3em] text-pewter">
+                  Online
+                </div>
+                <a
+                  href="https://amaryaconsultancy.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-sans text-base text-steel transition-colors hover:text-white"
+                >
+                  amaryaconsultancy.com
+                </a>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Footer - minimal, left aligned */}
         <motion.div
-          animate={floatingAnimation.animate}
-          className="absolute top-[15%] left-[10%] w-20 h-20 border border-lime-glow/10 rounded-full pointer-events-none"
-        />
-        <motion.div
-          animate={floatingAnimation.animate}
-          style={{ animationDelay: '1s' }}
-          className="absolute bottom-[20%] right-[15%] w-16 h-16 border border-cobalt-spark/10 rounded-full pointer-events-none"
-        />
-        <motion.div
-          animate={floatingAnimation.animate}
-          style={{ animationDelay: '2s' }}
-          className="absolute top-[40%] right-[8%] w-12 h-12 border border-slate/10 rounded-full pointer-events-none"
-        />
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ delay: 0.6, duration: 0.8 }}
+          className="mt-32 flex items-center justify-between border-t border-white/10 pt-8"
+        >
+          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-pewter">
+            Amarya Consultancy
+          </p>
+          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-pewter">
+            Jabalpur, Madhya Pradesh
+          </p>
+        </motion.div>
       </div>
     </section>
   );
