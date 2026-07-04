@@ -1,0 +1,164 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-carbon-ink: #0f0f0f;
+  --color-graphite: #222222;
+  --color-iron: #4c4c4c;
+  --color-steel: #606060;
+  --color-slate: #898989;
+  --color-fog: #9d9d9d;
+  --color-silver: #b2b2b2;
+  --color-pewter: #c6c6c6;
+  --color-ash: #dbdbdb;
+  --color-mist: #efefef;
+  --color-canvas-white: #ffffff;
+  --color-ice-blue: #e6f1ff;
+  --color-ice-blue-dark: #cce0ff;
+  --color-cobalt-spark: #0c76fe;
+  --color-cobalt-dark: #0a5fd4;
+  --color-lime-glow: #dcf58f;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-feature-settings: 'ss01' on, 'ss02' on;
+  }
+
+  body {
+    @apply bg-canvas-white text-iron font-sans antialiased;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  ::selection {
+    @apply bg-lime-glow text-carbon-ink;
+  }
+}
+
+@layer components {
+  .eyebrow {
+    @apply font-mono uppercase text-carbon-ink flex items-center gap-2;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+  }
+
+  .eyebrow-dark {
+    @apply font-mono uppercase text-slate flex items-center gap-2;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+  }
+
+  .headline-display {
+    @apply font-serif font-medium text-carbon-ink;
+    font-size: 64px;
+    line-height: 1;
+    letter-spacing: -1.92px;
+  }
+
+  .headline-section {
+    @apply font-serif font-medium text-carbon-ink;
+    font-size: 48px;
+    line-height: 1.1;
+    letter-spacing: -0.86px;
+  }
+
+  .headline-sans {
+    @apply font-sans font-semibold text-carbon-ink;
+    font-size: 48px;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  .btn-primary {
+    @apply bg-lime-glow text-carbon-ink rounded-full px-6 py-3 font-mono font-bold uppercase;
+    @apply transition-all duration-300 ease-smooth;
+    font-size: 13px;
+    letter-spacing: 0.05em;
+  }
+
+  .btn-primary:hover {
+    @apply bg-lime-glow-dark;
+  }
+
+  .btn-secondary {
+    @apply bg-carbon-ink text-canvas-white rounded-full px-6 py-3 font-mono font-bold uppercase;
+    @apply transition-all duration-300 ease-smooth;
+    font-size: 13px;
+    letter-spacing: 0.05em;
+  }
+
+  .btn-secondary:hover {
+    @apply bg-graphite;
+  }
+
+  .ghost-link {
+    @apply text-cobalt-spark font-sans flex items-center gap-2 transition-all duration-300 ease-smooth;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .ghost-link:hover {
+    @apply text-cobalt-dark;
+  }
+
+  .card {
+    @apply bg-canvas-white border border-ash rounded-card p-6;
+    @apply transition-all duration-300 ease-smooth;
+  }
+
+  .card:hover {
+    border-color: #c6c6c6;
+  }
+
+  .ice-panel {
+    @apply bg-ice-blue rounded-card p-6;
+  }
+
+  .pill-badge {
+    @apply bg-mist border border-ash rounded-full px-3.5 py-1 font-mono uppercase text-carbon-ink;
+    @apply transition-all duration-200 ease-smooth;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+  }
+
+  .pill-badge:hover {
+    @apply border-cobalt-spark;
+  }
+
+  .stat-number {
+    @apply font-sans font-semibold text-carbon-ink;
+    font-size: 36px;
+    letter-spacing: -0.02em;
+  }
+
+  .stat-label {
+    @apply font-mono uppercase text-slate;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+  }
+
+  .divider-dot {
+    @apply w-1 h-1 bg-pewter rounded-full;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .will-change-transform {
+    will-change: transform;
+  }
+
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+}
