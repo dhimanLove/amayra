@@ -1,20 +1,99 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/logo1.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Amarya Business Consultancy | Enterprise IT Solutions & Software Development</title>
-    <meta name="description" content="Accelerate your digital transformation with Amarya. Founded by IIT alumni, we deliver expert SAP consulting, full-stack web & mobile app development, AI solutions, and enterprise software engineering." />
-    <meta property="og:title" content="Amarya Business Consultancy | Enterprise IT Solutions & Software Development" />
-    <meta property="og:description" content="Accelerate your digital transformation with Amarya. Founded by IIT alumni, we deliver expert SAP consulting, full-stack web & mobile app development, AI solutions, and enterprise software engineering." />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Elms+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/logo1.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Amarya Business Consultancy | Enterprise IT Solutions & Software Development</title>
+  <meta name="description"
+    content="Accelerate your digital transformation with Amarya. Founded by IIT alumni, we deliver expert SAP consulting, full-stack web & mobile app development, AI solutions, and enterprise software engineering." />
+  <meta property="og:title" content="Amarya Business Consultancy | Enterprise IT Solutions & Software Development" />
+  <meta property="og:description"
+    content="Accelerate your digital transformation with Amarya. Founded by IIT alumni, we deliver expert SAP consulting, full-stack web & mobile app development, AI solutions, and enterprise software engineering." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Elms+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400;700&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <div id="root">
+    <style>
+      .preloader-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        inset: 0;
+        background-color: transparent;
+      }
+
+      .preloader-box {
+        position: relative;
+        width: 65px;
+        aspect-ratio: 1 / 1;
+      }
+
+      .preloader-span {
+        position: absolute;
+        border-radius: 50px;
+        box-shadow: inset 0 0 0 3px #0f0f0f;
+        animation: preloaderAnim 2.5s infinite;
+      }
+
+      .preloader-delay {
+        animation-delay: -1.25s;
+      }
+
+      @keyframes preloaderAnim {
+        0% {
+          inset: 0 35px 35px 0;
+        }
+
+        12.5% {
+          inset: 0 35px 0 0;
+        }
+
+        25% {
+          inset: 35px 35px 0 0;
+        }
+
+        37.5% {
+          inset: 35px 0 0 0;
+        }
+
+        50% {
+          inset: 35px 0 0 35px;
+        }
+
+        62.5% {
+          inset: 0 0 0 35px;
+        }
+
+        75% {
+          inset: 0 0 35px 35px;
+        }
+
+        87.5% {
+          inset: 0 0 35px 0;
+        }
+
+        100% {
+          inset: 0 35px 35px 0;
+        }
+      }
+    </style>
+    <div class="preloader-container">
+      <div class="preloader-box">
+        <span class="preloader-span"></span>
+        <span class="preloader-span preloader-delay"></span>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
 </html>
