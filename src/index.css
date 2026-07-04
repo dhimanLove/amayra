@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+::-webkit-scrollbar
+{
+  display: none;
+  
+}
+
 :root {
   --color-carbon-ink: #0f0f0f;
   --color-graphite: #222222;
