@@ -77,14 +77,14 @@ export function Navbar() {
         {/* Desktop Right */}
         <div className="hidden lg:flex items-center gap-4">
           <motion.a
-            href="tel:+917869043213"
+            href="tel:+91xxxxxxxxxx"
             className="font-mono text-body-sm text-iron hover:text-cobalt-spark transition-colors duration-300"
             initial={{ opacity: 0, x: 10 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.6 }}
             whileHover={{ x: 2 }}
           >
-            +91 78690 43213
+            +91xxxxxxxxxx
           </motion.a>
           <motion.a
             href="#contact"
@@ -193,13 +193,13 @@ export function Navbar() {
                 className="flex flex-col items-center gap-4"
               >
                 <motion.a
-                  href="tel:+917869043213"
+                  href="tel:+91xxxxxxxxxx"
                   variants={fadeUpVariant}
                   transition={{ delay: (navLinks.length + 1) * 0.08 }}
                   className="font-mono text-body text-iron hover:text-cobalt-spark transition-colors"
                   whileHover={{ x: 2 }}
                 >
-                  +91 78690 43213
+                  +91xxxxxxxxxx
                 </motion.a>
                 <motion.a
                   href="#contact"

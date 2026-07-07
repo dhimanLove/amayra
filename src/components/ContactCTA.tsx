@@ -61,7 +61,7 @@ export function ContactCTA() {
               className="flex items-center gap-8"
             >
               <a
-                href="tel:+917869043213"
+                href="tel:+91xxxxxxxxxx"
                 className="group inline-flex items-center gap-3 rounded-full bg-white px-10 py-5 font-sans text-sm font-medium text-carbon-ink transition-all hover:bg-white/90"
               >
                 Start a Project
@@ -69,10 +69,10 @@ export function ContactCTA() {
               </a>
 
               <a
-                href="tel:+917869043213"
+                href="tel:+91xxxxxxxxxx"
                 className="font-mono text-sm text-iron transition-colors hover:text-white"
               >
-                +91 78690 43213
+                +91xxxxxxxxxx
               </a>
             </motion.div>
           </div>
@@ -91,10 +91,10 @@ export function ContactCTA() {
                   Call
                 </div>
                 <a
-                  href="tel:+917869043213"
+                  href="tel:+91xxxxxxxxxx"
                   className="block font-sans text-3xl font-light text-canvas-white transition-colors hover:text-white lg:text-4xl"
                 >
-                  +91 78690 43213
+                  +91xxxxxxxxxx
                 </a>
               </div>
 

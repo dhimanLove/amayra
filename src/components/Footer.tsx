@@ -145,11 +145,11 @@ export function Footer() {
             <ul className="space-y-3 font-sans text-sm text-steel">
               <li>
                 <a
-                  href="tel:+917869043213"
+                  href="tel:+91xxxxxxxxxx"
                   className="group hover:text-canvas-white transition-colors inline-flex items-center gap-1.5"
                 >
                   <span className="w-1 h-1 bg-graphite rounded-full transition-all duration-300 group-hover:bg-canvas-white group-hover:scale-150" />
-                  +91 78690 43213
+                  +91xxxxxxxxxx
                 </a>
               </li>
               <li>40 Kingsway Cantt, Sadar</li>
